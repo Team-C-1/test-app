@@ -24,7 +24,7 @@
 | 3 | Organization | Org 생성 → 조원 **전원 초대 및 수락** |
 | 4 | Organization | **Security Configuration** 생성 (Secret Scanning + Push Protection) → **신규 리포 자동 적용** ON |
 | 5 | Organization | **Org Ruleset** 생성 — `test-*` 패턴 리포에 **PR 필수 + 승인 1명** |
-| 6 | Repository | 이 리포를 **`test-app`** 이름으로 fork → CodeQL 알림 확인 → 취약점 **2개 이상** 수정 |
+| 6 | Repository | 이 리포를 **`test-app`** 이름으로 fork → **코드 스캔 활성화** → 알림 확인 → 취약점 **2개 이상** 수정 |
 | 7 | 통합 | 수정을 **PR로 올려 다른 조원의 승인**을 받아 머지 |
 
 ### 진행 순서 주의
@@ -35,11 +35,21 @@
 
 ---
 
+## 먼저 — fork한 리포에서 코드 스캔을 켜세요
+
+**fork에는 스캔 설정이 따라오지 않습니다.** 코드는 복사되지만 스캔은 리포 설정이라 각자 켜야 합니다.
+
+> **내 `test-app` 리포 → Security 탭 → Code scanning → Set up → Default → Enable CodeQL**
+
+3번 클릭이면 끝나고, 켜는 즉시 스캔이 시작됩니다. 완료까지 보통 2~4분 걸리며 Actions 탭에서 진행 상황을 볼 수 있습니다.
+
+스캔이 끝나면 **Security 탭 → Code scanning alerts** 에 알림이 뜹니다. 아무것도 안 보이면 아직 도는 중입니다.
+
+---
+
 ## 취약점 수정 방법
 
-`app/main.py` 에 5개의 취약점이 있습니다. Security 탭 → Code scanning alerts 에서 확인하세요.
-
-CodeQL 스캔은 fork 직후 자동으로 실행됩니다. Actions 탭에서 진행 상황을 볼 수 있으며, 완료까지 보통 2~4분 걸립니다.
+`app/main.py` 에 5개의 취약점이 있습니다. 어디에 있는지는 알려주지 않습니다 — **스캔 결과로 찾으세요.**
 
 ### 수정 힌트
 

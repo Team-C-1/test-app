@@ -21,9 +21,6 @@ def get_connection():
     return sqlite3.connect(DB_PATH)
 
 
-# ============================================================
-# [취약점 1] 사용자 조회 API
-# ============================================================
 @app.route("/api/user")
 def get_user():
     user_id = request.args.get("id", "")
@@ -38,9 +35,6 @@ def get_user():
     return jsonify([{"id": r[0], "username": r[1], "email": r[2]} for r in rows])
 
 
-# ============================================================
-# [취약점 2] 상품 검색 API
-# ============================================================
 @app.route("/api/search")
 def search_products():
     keyword = request.args.get("q", "")
@@ -55,9 +49,6 @@ def search_products():
     return jsonify([{"name": r[0], "price": r[1]} for r in rows])
 
 
-# ============================================================
-# [취약점 3] 네트워크 진단 API
-# ============================================================
 @app.route("/api/ping")
 def ping_host():
     host = request.args.get("host", "localhost")
@@ -72,9 +63,6 @@ def ping_host():
     return jsonify({"output": result.stdout, "error": result.stderr})
 
 
-# ============================================================
-# [취약점 4] 로그 파일 조회 API
-# ============================================================
 @app.route("/api/logs")
 def read_log():
     filename = request.args.get("file", "app.log")
@@ -86,9 +74,6 @@ def read_log():
     return jsonify({"content": content})
 
 
-# ============================================================
-# [취약점 5] 관리자 명령 실행 API
-# ============================================================
 @app.route("/api/admin/exec", methods=["POST"])
 def admin_exec():
     command = request.form.get("cmd", "")
